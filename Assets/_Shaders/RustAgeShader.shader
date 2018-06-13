@@ -22,7 +22,7 @@
         sampler2D _MainBTex;
 
 		struct Input {
-			float2 uv_MainTex;
+			float2 uv_MainATex;
 		};
 
 		half _Glossiness;
@@ -39,17 +39,17 @@
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 
-        fixed4 a = tex2D(_MainATex, IN.uv_MainTex);
-        fixed4 b = tex2D(_MainBTex, IN.uv_MainTex) * _Blend;
+        fixed4 a = tex2D(_MainATex, IN.uv_MainATex);
+        fixed4 b = tex2D(_MainBTex, IN.uv_MainATex) * _Blend;
 
 
 			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainATex, IN.uv_MainTex) * _Color;
+			fixed4 c = tex2D (_MainATex, IN.uv_MainATex) * _Color;
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			o.Alpha = c.a * _Blend;
+			o.Alpha = c.a;
 		}
 		ENDCG
 	}
